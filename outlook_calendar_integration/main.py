@@ -20,7 +20,7 @@ async def watch(user_uuid: str, token: str = Query(None)):
     return {"task_id": task.id}
 
 
-@app.post("/pingtest9")
+@app.post("/ping")
 async def ping(request: Request):
     validation_token = request.query_params.get('validationToken')
     if validation_token:
