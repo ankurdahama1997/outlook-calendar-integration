@@ -105,7 +105,7 @@ def getToken(refresh_token):
 
 # Function to find the link in the event description
 def find_link(description):
-    zoom_link_pattern = r'/https:\/\/[\w-]*\.?zoom.us\/(j|my)\/[\d\w?=-]+/g'
+    zoom_link_pattern = r'https:\/\/[\w-]*\.?zoom.us\/(j|my)\/[\d\w?=-]+'
     meets_link_pattern = r'https:\/\/meet\.google\.com\/[a-z]+-[a-z]+-[a-z]+'
     teams_link_pattern = r'https:\/\/teams\.microsoft\.com\/l\/meetup-join\/[a-zA-Z0-9\/%]+'
 
@@ -158,7 +158,7 @@ def simplify_ms_event(event, email):
     if "@removed" in event:
         parsed['status'] = 'cancelled'
     if try_main == "":
-        link = find_link(json.loads(event))
+        link = find_link(json.dumps(event))
         parsed["link"] = link
 
     return parsed
