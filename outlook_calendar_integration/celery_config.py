@@ -46,6 +46,10 @@ def start_watch(refresh_token, user_uuid):
     response = {}
     response["uuid"] = user_uuid.rstrip()
     response["google_channel"] = response_watch.get('id')
+    if not response_watch.get('id'):
+        print("Id not in response", flush=True)
+        print(request_watch.text)
+        raise ValueError("Id not in response")
     response["google_expiry"] = int(time.mktime(expirationDateTime.timetuple()))*1000 
     response["service"] = "outlook"
     
