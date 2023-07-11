@@ -111,7 +111,7 @@ def getToken(refresh_token):
 def find_link(description):
     zoom_link_pattern = r'https:\/\/[\w-]*\.?zoom.us\/(j|my)\/[\d\w?=-]+'
     meets_link_pattern = r'https:\/\/meet\.google\.com\/[a-z]+-[a-z]+-[a-z]+'
-    teams_link_pattern = r'https:\/\/teams\.microsoft\.com\/l\/meetup-join\/[a-zA-Z0-9\/%]+(?:[a-zA-Z0-9-._~:/?#[\]@!$&\'()*+,;=%])*'
+    teams_link_pattern = r'https:\/\/(?:teams\.microsoft\.com\/l\/meetup-join|teams\.live\.com\/meet)\/[a-zA-Z0-9\/%]+(?:[a-zA-Z0-9-._~:/?#[\]@!$&\'()*+,;=%])*'
 
     zoom_match = re.search(zoom_link_pattern, description)
     if zoom_match:
@@ -120,7 +120,7 @@ def find_link(description):
     teams_match = re.search(teams_link_pattern, description)
     if teams_match:
         return teams_match.group(0)
-    
+
     meets_match = re.search(meets_link_pattern, description)
     if meets_match:
         return meets_match.group(0)
