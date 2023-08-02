@@ -109,7 +109,7 @@ def getToken(refresh_token):
 
 # Function to find the link in the event description
 def find_link(description):
-    zoom_link_pattern = r'https:\/\/[\w-]*\.?zoom.us\/(j|my)\/[\d\w?=-]*\?pwd=[\d\w?=-]+'
+    zoom_link_pattern = r'https:\/\/[\w-]*\.?zoom.us\/(j|my)\/[\d\w?=-]*(\?pwd=[\d\w?=-]+)?'
     meets_link_pattern = r'https:\/\/meet\.google\.com\/[a-z]+-[a-z]+-[a-z]+'
     teams_link_pattern = r'https:\/\/(?:teams\.microsoft\.com\/l\/meetup-join|teams\.live\.com\/meet)\/[a-zA-Z0-9\/%]+(?:[a-zA-Z0-9-._~:/?#[\]@!$&\'()*+,;=%])*'
 
