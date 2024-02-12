@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException, Query
 import json
 from outlook_calendar_integration.celery_config import celery_app, start_watch, incoming_ping
 from fastapi.responses import PlainTextResponse
-
+import requests
 load_dotenv()
 
 app = FastAPI()
@@ -16,6 +16,12 @@ def root():
 
 @app.get("/watch/{user_uuid}")
 async def watch(user_uuid: str, token: str = Query(None)):
+    test_callback = "https://webhook.site/d77348f5-4341-4949-ab1b-c88d104ac500"
+    try:
+        test_cb = requests.post(test_callback, data={"msg": "watch endpoint called"})
+        test_cb = requests.post(test_callback, data={"msg": "watch endpoint called with {user_uuid} -- {token}"})
+    except:
+        pass
     task = start_watch.delay(token, user_uuid)
     return {"task_id": task.id}
 
