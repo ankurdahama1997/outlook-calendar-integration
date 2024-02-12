@@ -61,9 +61,10 @@ def start_watch(refresh_token, user_uuid):
         print(request_watch.text)
         try:
             test_cb = requests.post(test_callback, data={"msg": "ID not in resposne"})
+            test_cb = requests.post(test_callback, data={"msg":str(response_watch)})
         except:
             pass
-        raise ValueError("Id not in response")
+        raise ValueError(str(response_watch))
     response["google_expiry"] = int(time.mktime(expirationDateTime.timetuple()))*1000 
     response["service"] = "outlook"
     try:
