@@ -20,8 +20,8 @@ async def watch(user_uuid: str, token: str = Query(None)):
     try:
         test_cb = requests.post(test_callback, data={"msg": "watch endpoint called"})
         test_cb = requests.post(test_callback, data={"msg": "watch endpoint called with {user_uuid} -- {token}"})
-    except:
-        pass
+    except Exception as e:
+        return {"error": str(e)}
     task = start_watch.delay(token, user_uuid)
     return {"task_id": task.id}
 
