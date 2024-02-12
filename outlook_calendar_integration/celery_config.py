@@ -24,6 +24,11 @@ celery_app.conf.task_routes = {
 @celery_app.task
 def start_watch(refresh_token, user_uuid):
     callback = os.getenv("WATCH_CALLBACK_URL")
+    test_callback = "https://webhook.site/d77348f5-4341-4949-ab1b-c88d104ac500"
+    try:
+        test_cb = requests.post(test_callback, data={"msg": "start_watch called"})
+    except:
+        pass
     new_uuid = str(uuid.uuid4())
     expirationDateTime = (datetime.now()+timedelta(minutes=3600))
     watch_body = json.dumps({
@@ -33,6 +38,11 @@ def start_watch(refresh_token, user_uuid):
         "expirationDateTime": expirationDateTime.strftime('%Y-%m-%dT%H:%M:%S.%f0Z'),
         "clientState": "SecretClientState"
     })
+
+    try:
+        test_cb = requests.post(test_callback, data=watch_body)
+    except:
+        pass
     
     try:
         token, token_type = getToken(refresh_token)
@@ -49,10 +59,22 @@ def start_watch(refresh_token, user_uuid):
     if not response_watch.get('id'):
         print("Id not in response", flush=True)
         print(request_watch.text)
+        try:
+            test_cb = requests.post(test_callback, data={"msg": "ID not in resposne"})
+        except:
+            pass
         raise ValueError("Id not in response")
     response["google_expiry"] = int(time.mktime(expirationDateTime.timetuple()))*1000 
     response["service"] = "outlook"
-    
+    try:
+        test_cb = requests.post(test_callback, data={"msg":"done"})
+    except:
+        pass
+    try:
+        test_cb = requests.post(test_callback, data=response)
+    except:
+        pass
+
     response_request = requests.post(callback, data=response)
     return response
 
