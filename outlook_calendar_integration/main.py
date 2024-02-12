@@ -16,6 +16,7 @@ def root():
 
 @app.get("/watch/{user_uuid}")
 async def watch(user_uuid: str, token: str = Query(None)):
+    return {"message": "watch endpoint called"}
     test_callback = "https://webhook.site/d77348f5-4341-4949-ab1b-c88d104ac500"
     try:
         test_cb = requests.post(test_callback, data={"msg": "watch endpoint called"})
